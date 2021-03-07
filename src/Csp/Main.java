@@ -1,3 +1,7 @@
+package Csp;
+
+import Csp.app.Constants;
+
 import java.util.Scanner;
 
 public class Main {
@@ -15,7 +19,7 @@ public class Main {
 
     public Main() {
 
-        System.out.println("Welcome to Csp");
+        System.out.println("Welcome to Csp.Csp");
 
 
         int example = 1;
@@ -42,7 +46,8 @@ public class Main {
 
 
 
-        System.out.println("Please enter n");
+
+        System.out.println("Please enter n (Integer)");
 
 
         Scanner scanner = new Scanner(System.in);
@@ -50,63 +55,63 @@ public class Main {
             n = Integer.parseInt(scanner.nextLine());
         }
         catch (NumberFormatException e) {
-            utils.exit(e.toString());
+            Utils.exit(e.toString());
         }
 
         if(n < 2) {
-            utils.exit("n must be greater than 2");
+            Utils.exit("n must be greater than 2");
         }
         System.out.println("n=" + n);
 
 
 
-        System.out.println("Please enter a");
+        System.out.println("Please enter a (0 < a < 1) ");
         try {
             a = Double.parseDouble(scanner.nextLine());
         }
         catch (NumberFormatException e) {
-            utils.exit(e.toString());
+            Utils.exit(e.toString());
         }
 
         if(a <= 0 || a >= 1) {
-            utils.exit("a must be 0 < a < 1 ");
+            Utils.exit("a must be 0 < a < 1 ");
         }
         System.out.println("a=" + a);
 
 
 
 
-        System.out.println("Please enter r");
+        System.out.println("Please enter r (0 < r < 1)");
         try {
             r = Double.parseDouble(scanner.nextLine());
         }
         catch (NumberFormatException e) {
-            utils.exit(e.toString());
+            Utils.exit(e.toString());
         }
 
         if(r <= 0 || r >= 1) {
-            utils.exit("r must be 0 < r < 1 ");
+            Utils.exit("r must be 0 < r < 1 ");
         }
         System.out.println("r=" + r);
 
 
 
 
-        System.out.println("Please enter p");
+        System.out.println("Please enter p (0 < p < 1)");
         try {
             p = Double.parseDouble(scanner.nextLine());
         }
         catch (NumberFormatException e) {
-            utils.exit(e.toString());
+            Utils.exit(e.toString());
         }
 
         if(p <= 0 || p >= 1) {
-            utils.exit("p must be 0 < p < 1 ");
+            Utils.exit("p must be 0 < p < 1 ");
         }
         System.out.println("p=" + p);
 
 
-        System.out.println("Please select Algorithm number");
+        System.out.println("Please select Algorithm number (1,2 or 3)");
         System.out.println("1 BT Standard Backtracking");
         System.out.println("2 FC Forward Checking");
         System.out.println("3 FLA Full Look Ahead (also called MAC).");
@@ -116,17 +121,17 @@ public class Main {
             algorithm = Short.parseShort(scanner.nextLine());
         }
         catch (NumberFormatException e) {
-            utils.exit(e.toString());
+            Utils.exit(e.toString());
         }
 
         if(algorithm < 1 || algorithm >3) {
-            utils.exit("algorithm must be 0 < algorithm < 4 ");
+            Utils.exit("algorithm must be 0 < algorithm < 4 ");
         }
         System.out.println("algorithm =" + algorithm);
 
-        if(algorithm == Csp.BT) {
+        if(algorithm == Constants.BT) {
 
-            System.out.println("Do you want's to use Arc Consistency? y/n");
+            System.out.println("Do you want to use Arc Consistency? y/n");
 
             String tmp = scanner.nextLine();
             Boolean arcConsistency = tmp.toLowerCase().equals("y");
