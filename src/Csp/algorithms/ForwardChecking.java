@@ -48,8 +48,8 @@ public class ForwardChecking {
 
             result[level]  = nextPossibleSolution(level);
             if(result[level] == -1) {
-                System.out.println("we cannot continue 1");
-                System.out.println("mitonim rollback konim" );
+             //   System.out.println("we cannot continue 1");
+              //  System.out.println("mitonim rollback konim" );
                 return;
             }
 
@@ -62,33 +62,33 @@ public class ForwardChecking {
             result[level] = nextPossibleSolution(level);
 
             if(result[level] == -1) {
-                System.out.println("we cannot continue 2");
-                System.out.println("mitonim rollback konim");
+            //    System.out.println("we cannot continue 2");
+           //     System.out.println("mitonim rollback konim");
                 return;
             }
         }
 
 
-        printAllPossibleSolutions();
+     //   printAllPossibleSolutions();
 
 
-        System.out.println(" \n\n **** Level: " + level + " ***** \n\n");
+       // System.out.println(" \n\n **** Level: " + level + " ***** \n\n");
 
         if(level >= result.length || level < 0) {
-             System.out.println("level "+ level +" out of range");
+         //    System.out.println("level "+ level +" out of range");
             return;
         }
 
         if(result[level] >= cspModel.getDomainSize()) {
-            System.out.println("result[level] >= cspModel.getDomainSize()");
+           // System.out.println("result[level] >= cspModel.getDomainSize()");
             result[level] = 0 ;
             return;
         }
 
             List<PathModel> pathModelList = cspModel.getPathModel(level);
             if(!checkIncompatibleTuples(level, pathModelList)) {
-                System.out.println("we cannot continue 3 ");
-                System.out.println("mitonim rollback konim ");
+             //   System.out.println("we cannot continue 3 ");
+              //  System.out.println("mitonim rollback konim ");
                 resetPossibleSolutions(level);
                 calculate(level , -1 );
                 return;
@@ -98,8 +98,8 @@ public class ForwardChecking {
             if(nextPossibleSolution == -1) {
                 //there is no way to continue
                 //rollback
-                System.out.println("we cannot continue 3 ");
-                System.out.println("mitonim rollback konim ");
+           //     System.out.println("we cannot continue 3 ");
+            //    System.out.println("mitonim rollback konim ");
                 resetPossibleSolutions(level);
                 calculate(level , -1 );
                 return;
@@ -108,50 +108,16 @@ public class ForwardChecking {
                 calculate( level, 1);
                 return;
             }
-           /* if(checkIncompatibleTuples(level, pathModelList)) {
-                System.out.println("We are ok here X" + level + " : " + result[level]  );
-                if(level==cspModel.getN()-1) {
-                    return;
-                }
-                calculate( level, 1);
-            }
-            else {
-                System.out.println("i found a problem X" + level + " : " + result[level]  );
 
-                int summary = 0 ;
-                for(int res : result) {
-                    summary+=res;
-                }
-                if(summary == result.length * this.cspModel.getDomainSize()-1) {
-                    highLevelError = "Error: all variables checked, we have no answer, X"+ level ;
-                    return;
-                }
-
-                if(result[level] < this.cspModel.getDomainSize()-1) {
-                    result[level]++;
-                    calculate(level, 0);
-                }
-                else {
-                    if(lastRollback == level) {
-                        highLevelError = "Error: end of available domain, we have no answer, 2 rollback on X"+level;
-                       // finalAnswer(level);
-                        return;
-                    }
-                    lastRollback = level;
-                    result[level] = 0;
-                    calculate(level , -1 );
-                }
-
-            }*/
         }
 
     private Boolean checkIncompatibleTuples(int from,  List<PathModel> pathModelList) {
 
-        System.out.println("checkIncompatibleTuples from: " + from);
+       // System.out.println("checkIncompatibleTuples from: " + from);
 
-        for(PathModel pathModel: pathModelList) {
+       /* for(PathModel pathModel: pathModelList) {
             printPathModel(pathModel);
-        }
+        }*/
 
 
         int length = pathModelList.size();
@@ -179,14 +145,14 @@ public class ForwardChecking {
                 if( pathModel.getTo() >  pathModel.getFrom())   continue;
             }
 
-            System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
+            //System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
 
             int[] path = pathModel.getPath().get(i);
 
             for (int j = 0; j < pathLength; j++) {
                 int [] tuple = pathModel.getPath().get(j);
                 if (x == tuple[0] && y == tuple[1]) {
-                    System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
+                  //  System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
                      if(!removePossibleSolution(targetLevel, removalPossibleSolution)) {
                          return false;
                      }
@@ -275,11 +241,11 @@ public class ForwardChecking {
         allPossibleSolutions.set(level, possible);
     }
     private void resetPossibleSolutions(int from) {
-        System.out.println("resetPossibleSolutions from: " + from);
+       // System.out.println("resetPossibleSolutions from: " + from);
         List<PathModel> pathModelList = cspModel.getPathModel(from);
-        for(PathModel pathModel: pathModelList) {
+        /*for(PathModel pathModel: pathModelList) {
             printPathModel(pathModel);
-        }
+        }*/
 
 
         int length = pathModelList.size();
@@ -321,7 +287,7 @@ public class ForwardChecking {
                     if( pathModel.getTo() >  pathModel.getFrom())   continue;
                 }
 
-            System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
+       //     System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
 
             int[] path = pathModel.getPath().get(i);
 
@@ -329,7 +295,7 @@ public class ForwardChecking {
                 int [] tuple = pathModel.getPath().get(j);
                 if (x == tuple[0] && y == tuple[1]) {
 
-                    System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
+                   // System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
                     int[] possible1 = allPossibleSolutions.get(i);
                     for(int k = 0 ; k < this.cspModel.getDomainSize(); k++) {
                         possible1[k] = k;
