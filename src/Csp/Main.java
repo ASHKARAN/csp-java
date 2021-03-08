@@ -21,7 +21,27 @@ public class Main {
 
         System.out.println("Welcome to Csp");
 
- 
+/*
+
+        int example = 3;
+        switch (example) {
+            case 1: {
+                new Csp(4, 0.33, 0.8, 0.7, (short) 3, false);
+                break;
+            }
+            case 2: {
+                new Csp(6, 0.33, 0.8, 0.7, (short) 3, false);
+                break;
+            }
+            case 3: {
+                new Csp(8, 0.33, 0.8, 0.7, (short) 3, false);
+                break;
+            }
+        }
+
+       if(true)  return;*/
+
+
 
 
 
@@ -109,7 +129,7 @@ public class Main {
         if(algorithm < 1 || algorithm >3) {
             Utils.exit("algorithm must be 0 < algorithm < 4 ");
         }
-        System.out.println("algorithm =" + algorithm);
+       // System.out.println("algorithm =" + algorithm);
 
         if(algorithm == Constants.BT) {
 
@@ -120,6 +140,8 @@ public class Main {
             System.out.println("Arc Consistency will be applied");
             System.out.println("Let's run the calculation");
             new Csp(n, a, r, p , algorithm, arcConsistency);
+        }else {
+            new Csp(n, a, r, p , algorithm, false);
         }
 
 

@@ -26,7 +26,7 @@ public class FullLookAhead {
 
         long startTime = System.nanoTime();
         generatePossibleSolutions(0);
-        calculate(0 , 0 );
+        calculate();
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
 
@@ -35,11 +35,7 @@ public class FullLookAhead {
 
     }
 
-    public void calculate(int level, int increment ) {
-
-
-
-
+    public void calculate() {
      //   printAllPossibleSolutions();
 
 
@@ -162,11 +158,13 @@ public class FullLookAhead {
     private void printResult() {
         System.out.println("\nConstraints (incompatible tuples):"  );
         printIncompatibleTuples();
+        Boolean unacceptable = false;
         if(highLevelError.equals("")) {
             System.out.println("\nPossible solution:");
             for(int i = 0 ; i < result.length ; i++) {
                 System.out.print("X" + i + ": " + result[i] +
                         (i < result.length-1 ? ", ": ""));
+                if(result[i] < 0 ) unacceptable = true;
             }
         }else {
             System.out.println("\nPossible solution:");
@@ -178,7 +176,12 @@ public class FullLookAhead {
             }
         }
 
+
+
         System.out.println("\n");
+        if(unacceptable) {
+            System.out.println("Result is unacceptable");
+        }
     }
 
     private void generatePossibleSolutions(int level) {
@@ -201,9 +204,9 @@ public class FullLookAhead {
     private void resetPossibleSolutions(int from) {
        // System.out.println("resetPossibleSolutions from: " + from);
         List<PathModel> pathModelList = cspModel.getPathModel(from);
-        for(PathModel pathModel: pathModelList) {
+       /* for(PathModel pathModel: pathModelList) {
             printPathModel(pathModel);
-        }
+        }*/
 
 
         int length = pathModelList.size();
