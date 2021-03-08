@@ -3,18 +3,15 @@ package Csp.algorithms;
 import Csp.Model.CspModel;
 import Csp.Model.PathModel;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.List;
-import java.util.logging.Level;
 
-public class BackTracking {
+public class FullLookAhead {
 
     private CspModel cspModel ;
     int[] result ;
     private int lastRollback = -1;
     private String highLevelError = "";
-    public BackTracking(CspModel cspModel) {
+    public FullLookAhead(CspModel cspModel) {
         this.cspModel = cspModel;
         this.result = new int[this.cspModel.getN()];
         for(int i = 0 ; i < result.length ; i++) {

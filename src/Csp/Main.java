@@ -19,21 +19,21 @@ public class Main {
 
     public Main() {
 
-        System.out.println("Welcome to Csp.Csp");
+        System.out.println("Welcome to Csp");
 
 
         int example = 1;
         switch (example) {
             case 1: {
-                new Csp(4, 0.33, 0.8, 0.7, (short) 1, false);
+                new Csp(4, 0.33, 0.8, 0.7, (short) 2, false);
                 break;
             }
             case 2: {
-                new Csp(6, 0.33, 0.8, 0.7, (short) 1, false);
+                new Csp(6, 0.33, 0.8, 0.7, (short) 2, false);
                 break;
             }
             case 3: {
-                new Csp(8, 0.33, 0.8, 0.7, (short) 1, false);
+                new Csp(8, 0.33, 0.8, 0.7, (short) 2, false);
                 break;
             }
         }

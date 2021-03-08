@@ -148,6 +148,7 @@ public class CspModel {
          for(int i = 0 ; i<length; i++) {
              PathModel pathModel = pathModelList.get(i);
              if(pathModel.getFrom() == from || pathModel.getTo() == from) {
+
                  result.add(pathModel);
              }
          }
