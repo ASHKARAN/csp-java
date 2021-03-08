@@ -21,34 +21,6 @@ public class Main {
 
         System.out.println("Welcome to Csp");
 
-/*
-
-        int example = 3;
-        switch (example) {
-            case 1: {
-                new Csp(4, 0.33, 0.8, 0.7, (short) 3, false);
-                break;
-            }
-            case 2: {
-                new Csp(6, 0.33, 0.8, 0.7, (short) 3, false);
-                break;
-            }
-            case 3: {
-                new Csp(8, 0.33, 0.8, 0.7, (short) 3, false);
-                break;
-            }
-        }
-
-       if(true)  return;*/
-
-
-
-
-
-
-
-
-
         System.out.println("Please enter n (Integer)");
 
 
@@ -129,8 +101,6 @@ public class Main {
         if(algorithm < 1 || algorithm >3) {
             Utils.exit("algorithm must be 0 < algorithm < 4 ");
         }
-       // System.out.println("algorithm =" + algorithm);
-
         if(algorithm == Constants.BT) {
 
             System.out.println("Do you want to use Arc Consistency? y/n");

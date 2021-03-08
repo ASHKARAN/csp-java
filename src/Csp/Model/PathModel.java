@@ -33,8 +33,6 @@ public class PathModel {
             data[1] = y;
             path.add(data);
         }
-
-
     }
 
     public int getFrom() {
@@ -43,10 +41,6 @@ public class PathModel {
 
     public int getTo() {
         return to;
-    }
-
-    public int getDomainSize() {
-        return domainSize;
     }
 
     public List<int[]> getPath() {

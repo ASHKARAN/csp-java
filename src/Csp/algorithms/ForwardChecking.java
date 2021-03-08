@@ -28,18 +28,13 @@ public class ForwardChecking {
         calculate(0 , 0 );
         long endTime = System.nanoTime();
         long timeElapsed = endTime - startTime;
-
-        System.out.println("Execution time: " + timeElapsed + " nano seconds");
         printResult();
+        System.out.println("Execution time: " + timeElapsed + " nano seconds");
+
 
     }
 
     public void calculate(int level, int increment ) {
-
-
-
-
-        //printResult();
         if(increment == 1 ) {
             level++;
             if(level >= this.cspModel.getN()){
@@ -47,11 +42,8 @@ public class ForwardChecking {
             }
 
             result[level]  = nextPossibleSolution(level);
-            if(result[level] == -1) {
-             //   System.out.println("we cannot continue 1");
-              //  System.out.println("mitonim rollback konim" );
-                return;
-            }
+            if(result[level] == -1)  return;
+
 
         }
         else if(increment == -1) {
@@ -61,34 +53,18 @@ public class ForwardChecking {
             }
             result[level] = nextPossibleSolution(level);
 
-            if(result[level] == -1) {
-            //    System.out.println("we cannot continue 2");
-           //     System.out.println("mitonim rollback konim");
-                return;
-            }
+            if(result[level] == -1) return;
         }
 
-
-     //   printAllPossibleSolutions();
-
-
-       // System.out.println(" \n\n **** Level: " + level + " ***** \n\n");
-
-        if(level >= result.length || level < 0) {
-         //    System.out.println("level "+ level +" out of range");
-            return;
-        }
+        if(level >= result.length || level < 0) return;
 
         if(result[level] >= cspModel.getDomainSize()) {
-           // System.out.println("result[level] >= cspModel.getDomainSize()");
             result[level] = 0 ;
             return;
         }
 
             List<PathModel> pathModelList = cspModel.getPathModel(level);
             if(!checkIncompatibleTuples(level, pathModelList)) {
-             //   System.out.println("we cannot continue 3 ");
-              //  System.out.println("mitonim rollback konim ");
                 resetPossibleSolutions(level);
                 calculate(level , -1 );
                 return;
@@ -96,30 +72,16 @@ public class ForwardChecking {
 
             int nextPossibleSolution = nextPossibleSolution(level);
             if(nextPossibleSolution == -1) {
-                //there is no way to continue
-                //rollback
-           //     System.out.println("we cannot continue 3 ");
-            //    System.out.println("mitonim rollback konim ");
                 resetPossibleSolutions(level);
                 calculate(level , -1 );
-                return;
             } else {
                 result[level] = nextPossibleSolution;
                 calculate( level, 1);
-                return;
             }
 
         }
 
     private Boolean checkIncompatibleTuples(int from,  List<PathModel> pathModelList) {
-
-       // System.out.println("checkIncompatibleTuples from: " + from);
-
-       /* for(PathModel pathModel: pathModelList) {
-            printPathModel(pathModel);
-        }*/
-
-
         int length = pathModelList.size();
 
         for(int i = 0 ; i < length ; i++) {
@@ -144,16 +106,10 @@ public class ForwardChecking {
                 removalPossibleSolution = x ;
                 if( pathModel.getTo() >  pathModel.getFrom())   continue;
             }
-
-            //System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
-
-            int[] path = pathModel.getPath().get(i);
-
             for (int j = 0; j < pathLength; j++) {
                 int [] tuple = pathModel.getPath().get(j);
                 if (x == tuple[0] && y == tuple[1]) {
-                  //  System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
-                     if(!removePossibleSolution(targetLevel, removalPossibleSolution)) {
+                    if(!removePossibleSolution(targetLevel, removalPossibleSolution)) {
                          return false;
                      }
                 }
@@ -171,22 +127,7 @@ public class ForwardChecking {
         return -1;
 
     }
-    public void calculateWithArcConsistency() {
 
-    }
-
-    public void printPathModel(PathModel pathModel1) {
-
-        System.out.print("X" + pathModel1.getFrom() + "("+result[pathModel1.getFrom()]
-                +") X" + pathModel1.getTo() + "("+ result[pathModel1.getTo()]  + ") ->  ");
-
-        for(int j=0; j < pathModel1.getPath().size() ; j++) {
-            int[]  xx = pathModel1.getPath().get(j);
-            System.out.print ( "("+xx[0]+","+xx[1]+")" );
-        }
-        System.out.println( " " );
-
-    }
 
     private void printIncompatibleTuples() {
         for(int i = 0 ; i < cspModel.getRandomConstraints() ; i++) {
@@ -235,21 +176,9 @@ public class ForwardChecking {
             else  allPossibleSolutions.set(level, possible);
         }
     }
-    private void removeItemFromPossibleSolutions(int level, int solution) {
-        int [] possible = allPossibleSolutions.get(level);
-        possible[solution] = REMOVED  ;
-        allPossibleSolutions.set(level, possible);
-    }
     private void resetPossibleSolutions(int from) {
-       // System.out.println("resetPossibleSolutions from: " + from);
         List<PathModel> pathModelList = cspModel.getPathModel(from);
-        /*for(PathModel pathModel: pathModelList) {
-            printPathModel(pathModel);
-        }*/
-
-
         int length = pathModelList.size();
-
         for(int i = from ; i < length ; i++) {
             PathModel pathModel = pathModelList.get(i);
             int pathLength = pathModel.getPath().size();
@@ -257,8 +186,6 @@ public class ForwardChecking {
             int x = 0 ;
             int y = 0 ;
             int targetLevel = -1 ;
-            int removalPossibleSolution = -1;
-
             if (pathModel.getFrom() == from) {
                 targetLevel = pathModel.getTo();
 
@@ -287,41 +214,18 @@ public class ForwardChecking {
                     if( pathModel.getTo() >  pathModel.getFrom())   continue;
                 }
 
-       //     System.out.println("From: " + from + " - X: " + x + " - Y: " + y);
-
-            int[] path = pathModel.getPath().get(i);
-
             for (int j = 0; j < pathLength; j++) {
-                int [] tuple = pathModel.getPath().get(j);
-                if (x == tuple[0] && y == tuple[1]) {
-
-                   // System.out.println("incompatible with X"+targetLevel + " level: " + from+"  -  x: " + x + " - y: " + y);
-                    int[] possible1 = allPossibleSolutions.get(i);
-                    for(int k = 0 ; k < this.cspModel.getDomainSize(); k++) {
-                        possible1[k] = k;
+                    int [] tuple = pathModel.getPath().get(j);
+                    if (x == tuple[0] && y == tuple[1]) {
+                        int[] possible1 = allPossibleSolutions.get(i);
+                        for(int k = 0 ; k < this.cspModel.getDomainSize(); k++) {
+                            possible1[k] = k;
+                        }
+                        allPossibleSolutions.set(i , possible1);
                     }
-                    allPossibleSolutions.set(i , possible1);
                 }
             }
-
-
-
-            }
-
-
-
         }
-
-
-
-    }
-    private int [] getPossibleSolutions(int level) {
-        int [] possible = allPossibleSolutions.get(level);
-        return possible.length > 0 ? possible: null;
-    }
-    private int getSinglePossibleSolutions(int level) {
-        int [] possible = allPossibleSolutions.get(level);
-        return possible.length > 0 ? possible[0]: null;
     }
 
     private Boolean removePossibleSolution(int level, int value) {
@@ -333,32 +237,8 @@ public class ForwardChecking {
                 break;
             }
         }
-
         if(result[level] == value)
             result[level] = nextPossibleSolution(level);
         return result[level] > -1;
-    }
-
-
-   private void printAllPossibleSolutions() {
-
-        System.out.println("********* printAllPossibleSolutions ************");
-        for(int i = 0 ; i < allPossibleSolutions.size(); i++) {
-            int[] possible = allPossibleSolutions.get(i);
-            System.out.print("X"+i+": " + result[i] + " >>  ");
-            for(int j = 0  ; j < possible.length; j++) {
-                System.out.print(possible[j] + ", ");
-            }
-            System.out.println("");
-        }
-
-/*
-        for(int i=0 ; i < this.cspModel.getN(); i++) {
-            int [] possible = new int[this.cspModel.getDomainSize()];
-            for(int j=0 ; j < this.cspModel.getDomainSize(); j++) {
-                possible[j] = j;
-            }
-            allPossibleSolutions.set(i, possible);
-        }*/
     }
 }
